@@ -4,7 +4,7 @@
   "description": "Server Testing Project",
   "main": "index.js",
   "scripts": {
-	"server": "nodemon index.js",
+    "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose",
     "start": "node index.js"
   },
@@ -32,6 +32,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "knex": "^0.17.6",
-    "pg": "^7.11.0"
+    "pg": "^7.11.0",
+    "sqlite": "^3.0.3"
   }
 }

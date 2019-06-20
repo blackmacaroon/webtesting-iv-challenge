@@ -7,7 +7,7 @@ module.exports = {
 };
 
 function getAll() {
-      return DataCue('zipzorps')
+      return db('zipzorps')
 };
 
 function insert(zipzorp) {
@@ -21,5 +21,7 @@ function insert(zipzorp) {
 };
 
 function remove(id) {
-      return null;
+      return db('zipzorps')
+      .where({ id })
+      .del();
 }

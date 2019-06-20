@@ -1,7 +1,7 @@
 const server = require('./server.js');
 const supertest = require('supertest');
 
-describe('server', () => {
+describe('server sanity check', () => {
       describe('GET/', () => {
             it('should respond with 200 OK', () => {
                   return supertest(server)
