@@ -1,6 +1,6 @@
 const express = require('express');
 
-const ZipZorps = require('../zipzorps/zipzorpModel.js');
+const db = require('../zipzorps/zipzorpModel.js');
 
 const server = express();
 
@@ -12,28 +12,50 @@ server.get('/', (req, res) => {
 });
 
 //GET
-server.get('/zipzorps', (req, res) => {
-      ZipZorps.getAll()
-            .then(zipzorps => {
-                  res.status(200).json(zipzorps);
-            })
-            .catch(err => {
-                  res.status(500).json({message: 'Bodag the chintsies!'})
-            })
-})
+server
+      .get('/zipzorps', async (req, res) => {
+            try {
+                  const zipzorps = await db.getAll('zipzorps')
+                  res.status(200).json(zipzorps)
+            } catch(error) {
+                        console.log(error);
+                        res.status(500).json({message: 'Bodag the chintsies!'})
+            }
+      })
+      
+
 //CREATE
-server.post('/zipzorps', (req, res) => {
-      ZipZorps.insert(req.body)
-            .then(zipzorp => {
-                  res.status(201).json({ message: 'Ot!'});
-            })
-            .catch(err => {
-                  res.status(500).json({ error: 'Zeg.'})
-            })
+      .post('/zipzorps', async (req, res) => {
+            const zipzorp = req.body;
+            if(zipzorp.zipzorp){
+                  try{
+                        const inserted = await db.insert(zipzorp)
+                        res.status(201).json({ message: 'Ot!' });
+                  } catch(error) {
+                        res.status(500).json(error)
+                  }
+            } else {
+                  res.status(400).json({ message: 'syzzygy?'})
+            }
+      })
       
-      
-})
+
 
 //DELETE
+      .delete('/zipzorps/:id', (req, res) => {
+            const id = req.params.id;
+            db.remove(id)
+                  .then(count => {
+                        if(count > 0){
+                              res.status(200).json({ message: 'Vag ot!' })
+                        } else {
+                              res.status(404).json({ message: "Nope." })
+                        }
+                  })
+                  .catch(err => {
+                        res.status(500).json(err)
+                  })
+      })
+
 
 module.exports = server;

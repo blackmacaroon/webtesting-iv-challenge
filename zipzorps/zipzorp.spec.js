@@ -12,6 +12,8 @@ describe('zipzorp model', () => {
             expect(process.env.DB_ENV).toBe('testing');
       });
 
+      
+
       describe('insert()', () => {
             it('should insert zipzorp to zipzorps database', async () => {
                   await insert({zipzorp: 'atcher bomm'})
@@ -24,12 +26,7 @@ describe('zipzorp model', () => {
                   let inserted = await insert(zipzorp);
                   expect(inserted.zipzorp).toBe(zipzorp.zipzorp)
             })
-            it('should return 201 after zipzorp is created', async () => {
-                  let zipzorp = {zipzorp: 'rikkit'};
-                  let inserted = await insert(zipzorp);
-                  expect(inserted.zipzorp).toBe('rikkit')
-                  expect(inserted.status).toBe(201)
-            })
+            
       })
 
       describe('remove()', () => {
