@@ -47,7 +47,7 @@ server
             db.remove(id)
                   .then(count => {
                         if(count > 0){
-                              res.status(200).json({ message: 'Vag ot!' })
+                              res.status(204).json({ message: 'Vag ot!' })
                         } else {
                               res.status(404).json({ message: "Nope." })
                         }

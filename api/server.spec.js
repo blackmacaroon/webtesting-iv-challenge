@@ -44,5 +44,18 @@ describe('server', () => {
                         .send(zipzorp)
                         .expect(201)
             })
+            it('should create new zipzorp in json format', async () => {
+                  const zipzorp = { zipzorp: 'poq'}
+                  const res = await supertest(server)
+                        .post('/zipzorps')
+                        .send(zipzorp)
+                        .expect('Content-Type', /json/i);
+            })
+      })
+
+      describe('DELETE/ZIPZORPS', () => {
+            it('should respond with 204 when zipzorp is successfully deleted', async () => {
+
+            })
       })
 })
